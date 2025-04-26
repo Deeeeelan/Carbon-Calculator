@@ -1,14 +1,47 @@
+<!--CE stands for Carbon Emissions-->
+
 <!DOCTYPE html>
+<html lang="en"></html>
 <head>
     <title style="color:black;">
-        OCSEFHacks 25
+        Carbon Calculator
     </title>
     <link rel="stylesheet" href="style.css">
-    <script src = "script.js"></script>
+    <script src = "carboncalculator.js"></script>
+    <script src = "map.js"></script>
 </head>
 <body>
-    <h1>OCSEFHacks '25</h1>
-    <button>
-        What are carbon emissions?
-    </button>
+    <h1>Carbon Emissions Calculator</h1>    
+    <div class="center">
+        <h2>About this project</h2>
+        <button class="dropdown" onclick="displayInfo('carbonEmissions')">
+            What are carbon emissions?
+        </button>       
+        <div id="carbonEmissions" class="info">
+            Carbon emissions are the release of compounds containing carbon into the atmosphere. 
+        </div>
+
+        <h4>Why are they harmful?</h4> These compounds trap heat in the atmosphere, leading to global warming and climate change.
+        
+
+        <h5>What is the purpose of the calculator?</h5>This carbon emission calculator tells you how many carbon emissions you release using either a car, plane,, or train based on how many miles you traveled. It helps you become more aware of your impact on the environment, and changes you can make to decrease your carbon footprint.
+                    
+            <div id="map"; style="height: 500px; width: 75%;"></div>
+            <h2>
+                Calculate your carbon emissions
+            </h2>
+<!--drowpdown box and text boxes-->
+            <p>
+            <form action="/calculate.php" method ="get">
+                <input type="number" id="miles">
+                <label for = "vehicle"> miles in a </label>
+                <select name = "vehicle" id = "vehicle">
+                    <option value = "car"> car </option>
+                    <option value = "plane"> plane </option>
+                    <option value = "train"> train </option>
+                </select>
+                <br><br>
+                <input class="CEsubmit" type = "submit" value = "Calculate!">
+            </p>
+    </div>
 </body> <!--comment-->
