@@ -1,3 +1,16 @@
 body {
     background-color: lightblue;
 }
+
+h1 {
+    color: darkgreen; 
+    font-size: 60px; 
+    text-align: center
+}
+
+button {
+    color:orange; 
+    font-size: 20px; 
+    text-align: center; 
+    border-radius: 20px;
+}
