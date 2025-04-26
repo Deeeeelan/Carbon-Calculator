@@ -1,5 +1,0 @@
-let map;
-
-function initMap() {
-    
-}

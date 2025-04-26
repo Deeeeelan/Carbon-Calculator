@@ -1,47 +1,137 @@
+<!DOCTYPE html>
 <!--CE stands for Carbon Emissions-->
 
-<!DOCTYPE html>
 <html lang="en"></html>
 <head>
-    <title style="color:black;">
+    <!--web page title-->
+    <title style="color:black;"> 
         Carbon Calculator
     </title>
-    <link rel="stylesheet" href="style.css">
-    <script src = "carboncalculator.js"></script>
-    <script src = "map.js"></script>
+    <link rel="stylesheet" href="style.css"> <!--Creates a stylesheet from style.css in order to format each element on the page-->
 </head>
-<body>
-    <h1>Carbon Emissions Calculator</h1>    
-    <div class="center">
-        <h2>About this project</h2>
-        <button class="dropdown" onclick="displayInfo('carbonEmissions')">
+<body></body>
+    <h1>Carbon Emissions Calculator</h1> <!--main central title within the page-->    
+    <div class="center"> <!--creates a centered white box for the information within-->
+        <h2>About</h2> <!--subheading-->
+
+        <!--Creates several green buttons that will show more information about each topic on click-->
+        <!--Carbon emissions-->
+        <button class="dropdown" onclick="displayInfo('carbonEmissions')"> <!--When the button is clicked, it calls the displayInfo() function from map.js using the id of is related information (carbonEmissions)-->
             What are carbon emissions?
-        </button>       
-        <div id="carbonEmissions" class="info">
-            Carbon emissions are the release of compounds containing carbon into the atmosphere. 
+        </button> 
+        <div id="carbonEmissions" class="info"> <!--Uses the same id used when the function is called-->
+            Carbon emissions are the release of compounds containing carbon into the atmosphere created by industrial processes, which include burning fossil fuels. Fossil fuels are used to generate electricity and power vehicles.
         </div>
 
-        <h4>Why are they harmful?</h4> These compounds trap heat in the atmosphere, leading to global warming and climate change.
+        <!--Harm of carbon compounds-->
+        <button class="dropdown" onclick="displayInfo('harmful')"> <!--unique id for each button-->
+            Why are carbon compounds harmful?
+        </button> 
+        <div id="harmful" class="info">
+            These compounds trap heat in the atmosphere, leading to global warming and climate change as Earth's temperatures increase. This leads to shrinking ice caps, rising ocean levels, warmer temperatures, and air pollution, all of which harms the environment.
+        </div>        
         
+        <!--Why this matters-->
+        <button class="dropdown" onclick="displayInfo('issue')">
+            Why should we care?
+        </button> 
+        <div id="issue" class="info">
+            As high-income countries grow, their carbon footprint grows along with it, increasing the amount of carbon emissions emitted per person. According to the World Bank, the average person in the United States, emits <b>13.83 tons</b> of carbon per year, almost <b>3 times</b> the global average. Large amounts of carbon emissions leads to global warming, destroying habitats and animals.
+        </div>
 
-        <h5>What is the purpose of the calculator?</h5>This carbon emission calculator tells you how many carbon emissions you release using either a car, plane,, or train based on how many miles you traveled. It helps you become more aware of your impact on the environment, and changes you can make to decrease your carbon footprint.
-                    
-            <div id="map"; style="height: 500px; width: 75%;"></div>
-            <h2>
+        <!--Methods to reduce carbon emissions-->
+        <button class="dropdown" onclick="displayInfo('method')">
+            How can we reduce our carbon emissions?
+        </button> 
+        <div id="method" class="info">
+            Transportation methods account for <b>15%</b> of the world's carbon emissions. By reducing our reliance on motorized vehicles, we can reduce our consumption of fossil fuels and our carbon footprint. Instead of driving to the nearby park, you can help the planet by walking or biking instead. Using electric vehicles or renewable energy sources, such as solar power, can also help reduce carbon emissions.
+        </div>
+
+        <!--Purpose of calculator-->
+        <button class="dropdown" onclick="displayInfo('purpose')">
+            What is the purpose of the calculator?
+        </button> 
+        <div id="purpose" class="info">
+            This carbon emission calculator tells you how many carbon emissions you release using either a car, plane, or train based on how many miles you traveled. It helps you become more aware of your impact on the environment, and what changes you can make to decrease your carbon footprint.
+        </div>    
+               
+        <!--How the calculator works-->
+        <button class="dropdown" onclick="displayInfo('work')">
+            How does the calculator work?
+        </button> 
+        <div id="work" class="info">
+            The calculations are based on the average carbon emissions of each mode of transport. Cars emit 400 g CO<sub>2</sub>/mi<!--US Environmental Protection Agency-->, trucks emit 1,617 g CO<sub>2</sub>/mi<!--Global Supply Chain-->, planes emit 24,176 g CO<sub>2</sub>/mi, and trains emit 177 g CO<sub>2</sub>/mi. 
+        </div>
+
+        <!--<div id="map"; style="height: 500px; width: 75%;"></div>-->
+        <div class="calculatorbox"> <!--creates a separate green box for the calculator-->
+            <h2 style="text-align: center">
                 Calculate your carbon emissions
             </h2>
-<!--drowpdown box and text boxes-->
-            <p>
-            <form action="/calculate.php" method ="get">
-                <input type="number" id="miles">
-                <label for = "vehicle"> miles in a </label>
-                <select name = "vehicle" id = "vehicle">
+            
+            <!--dropdown box and text boxes-->
+            <div>
+                <input type="number" id="miles" min=0 value=0> <!--a text input box used to input the miles traveled-->
+                <p id="travel" style="color:darkgreen">miles traveled by</p>
+                
+                <select name = "vehicle" id = "vehicle"> <!--dropdown menu with x options: car, plane, and train-->
                     <option value = "car"> car </option>
+                    <option value = "truck"> truck </option>
                     <option value = "plane"> plane </option>
                     <option value = "train"> train </option>
                 </select>
-                <br><br>
-                <input class="CEsubmit" type = "submit" value = "Calculate!">
-            </p>
+
+                <button id="calculateEM" class="CEsubmit" onclick="calculateCE()">Calculate!</button> <!--button used to calculate carbon emissions based on the provided inputs, runs calculateCE() on click-->
+            </div>
+            <!--output area-->
+            <div id="output" class="output">
+            </div>
+            <script src = "carboncalculator.js"></script> <!--retrieves the JavaScript code at map.js for use by the HTML code-->
+        </div>
+    <br>
+    
+    <div id="map"></div>
+
+    <!-- prettier-ignore -->
+    <script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${
+    c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
+        ({key: "API_KEY", v: "weekly"});</script>
+    <script>
+        let map;
+
+        async function initMap() {
+          const { Map } = await google.maps.importLibrary("maps");
+        
+          map = new Map(document.getElementById("map"), {
+            center: { lat: -34.397, lng: 150.644 },
+            zoom: 8,
+          });
+        }
+        initMap();
+    </script>
+    
+    <br>
+    <div>
+        <h2>
+            Some (fun) facts:
+        </h2>
+        <p class="funfacts">
+            It would take [carbon_dioxide_output_grams/21700] tree(s) to convert all that carbon dioxide into oxygen in 1 year
+        </p>
     </div>
-</body> <!--comment-->
+    </div>
+    <input type="text" id="outputBox" readonly/> grams of carbon emissions released
+    <document.getElementdById("carbon_dioxide_output_grams"). value="result"/>
+    
+    <button id="test">test</button>
+    <script>
+        document.getElementById("test").addEventListener("click", function(){
+            fetch('http://127.0.0.1:5001/map')
+            .then(data => {
+                alert(data)
+                console.log(data)
+            })
+            
+        });
+    </script>
+</body>

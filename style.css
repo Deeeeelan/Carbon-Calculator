@@ -1,55 +1,68 @@
-.vertical-center {
-    margin: 0;
-    position: absolute;
-    top: 50%;
-    -ms-transform: translateY(-50%);
-    transform: translateY(-50%);
-}
-.horizontal-center {
-    margin: 0;
-    position: absolute;
-    left: 50%;
-    -ms-transform: translateX(-50%);
-    transform: translateX(-50%);
-}
-
-.dropdown {
-    background-color: antiquewhite;
+/* . = class, # = id */
+.dropdown { /*Used by the dropdown information boxes*/
+    background-color: palegreen;
     color:green; 
     font-size: 30px; 
     text-align: left; 
     border-radius: 10px;
     width: 100%;
-    border-width: 0px;
-    margin-right: 20px;
-    margin-left: 10px;
+    border: 5px solid lightgreen;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
     cursor: pointer;
+    padding: 3px;
+    transition: all 0.2s ease-out;
 }
 
-.dropdown:hover {
+.dropdown:hover { /*Changes the color of the dropdown information boxes when the user hovers over it*/
     color: darkgreen;
-    background-color:beige
+    background-color:#e0d7c6;
+    border: 5px solid #e0d7c6;
+    transition: all 0.2s ease-out;
 }
 
-.info {
+.info { /*Used by the information that appears after clicking on the dropdown boxes*/
     display: none;
     font-size: 20px;
     color: green;
-    background-color: antiquewhite;
+    background-color: rgb(251, 230, 202);
     text-align: left;
-    margin-top: 0px;
-    margin-left: 20px;
-    margin-bottom: 10px;
-    border: 10px solid antiquewhite;
+    margin: auto;
+    border: 10px solid rgb(251, 230, 202);
 }
-div {
+
+.output {
+    display:none;
+    margin: auto;
+    margin-top: 10px;
+    background-color: rgb(216, 252, 216);
+    border-radius: 20px;
+    padding: 2%;
+    color:darkgreen;
+    font-size:40px;
+    text-align:center;
+}
+.funfacts { /*Uesd by the text that appears after calculations*/
+    display:none;
+    margin: auto;
+    margin-top: 10px;
+    background-color: antiquewhite;
+    border-radius: 20px;
+    padding: 2%;
+    color:darkgreen;
+    font-size:40px;
+    text-align:center;
+}
+
+div { /*sets the default font to be Arial*/
     font-family: Arial;
 }
-body {
+body { /*Sets the background for the page to be light blue*/
     background-color: lightblue;
 }
 
-h1 {
+h1 { /*Used by the central large title */
     font-family: Arial;
     color: darkgreen; 
     font-size: 60px; 
@@ -57,37 +70,81 @@ h1 {
     margin-bottom: 50px
 }
 
-h2 {
+h2 { /*Used by subheadings within the beige body box*/
     color: darkgreen; 
     font-size: 40px; 
     text-align: left;
-    margin-top: 10px;
+    margin-top: 0px;
     margin-bottom: 10px;
     margin-left: 10px;
 }
 
-button {
-    color:green; 
-    font-size: 30px; 
-    text-align: left; 
-    border-radius: 10px;
-    width: 100%;
-    border-width: 0px;
-    margin-right: 20px;
-    margin-left: 20px;
-    cursor: pointer;
-}
-
-.center {
-    padding: 2%;
+.center { /*Used by the central*/
     background-color: antiquewhite;
     width: 60%;
     border-radius: 10px;
     margin: auto;
+    padding: 3%;
 }
 
-.CEsubmit {
+input { /*Used for the input box for miles traveled*/
+    font-size: 20px;
+}
+
+option { /*Uses the same font size as the select box*/
+    font-size: inherit;
+}
+
+.calculatorbox { /*Used for the light green box that surrounds the calculator*/
+    margin: auto;
+    margin-top: 10px;
+    background-color: rgb(216, 252, 216);
+    border-radius: 20px;
+    padding: 2%;
+}
+
+.CEsubmit { /*Used by the button to submit inputs*/
     background-color: lightgreen;
-    font-size:20px;
-    margin-top:10px;
+    font-size: 50px;
+    width: 90%;
+    border: 0px;
+    margin: auto;
+    margin-top: 2%;
+    cursor: pointer;
+    padding: 1%;
+    display: block;
+    text-align: center;
+}
+
+#miles { /*TODO: Center this*/
+    display: block; 
+    margin: auto;
+    width: 100%;
+
+    color: green;
+    font-size: 64px;
+    font-weight: 600;
+    text-align: center;
+
+    border: 0;
+    
+    background-color: #ffffff;
+
+}
+#vehicle {
+    display: block; 
+    margin: auto;
+    font-size: 30px;
+    border: 0;
+    border-radius: 5px;
+    color: darkgreen;
+}
+#travel {
+    text-align: center;
+    font-size: 30px;
+    margin: 2.5%;
+}
+#map {
+    width: 100%;
+    height: 500px;
 }
