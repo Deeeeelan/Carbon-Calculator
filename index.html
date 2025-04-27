@@ -4,7 +4,7 @@
 <html lang="en"></html>
 <head>
     <!--web page title-->
-    <title style="color:black;"> 
+    <title> 
         Carbon Calculator
     </title>
     <link rel="stylesheet" href="style.css"> <!--Creates a stylesheet from style.css in order to format each element on the page-->
@@ -52,14 +52,14 @@
             What about electric vehicles?
         </button> 
         <div id="ev" class="info">
-            Electric cars are an alternative to using gas cars, as they are environmentally friendly and do not release carbon emissions. However, that also depends on where the electricity is sourced.
+            Electric cars are an alternative to using gas cars, as they are environmentally friendly and do not release carbon emissions. However, that also depends on where and how the electricity is sourced.
         </div>    
                
         <!--Purpose-->
-        <button class="dropdown" onclick="displayInfo('work')">
+        <button class="dropdown" onclick="displayInfo('purpose')">
             What is this calculator for?
         </button> 
-        <div id="work" class="info">
+        <div id="purpose" class="info">
             This calculator helps people understand their environmental impact when they use motorized vehicles, and brings awareness to other alternatives to using these vehicles. 
         </div>
 
@@ -87,7 +87,7 @@
 
             </div>
             <script
-            src="https://maps.googleapis.com/maps/api/js?key=INSERT_KEY&callback=initMap&v=weekly&solution_channel=GMP_CCS_distancematrix_v2"
+            src="https://maps.googleapis.com/maps/api/js?key=API_KEY&callback=initMap&v=weekly&solution_channel=GMP_CCS_distancematrix_v2"
             async
             defer
             ></script>
@@ -114,22 +114,14 @@
             <div id="alternative" class="output">
             </div>
         </div>
-    <br>
-    
-    
-    <br>
     <div class="funfactsinfo">
-        <h2 style="font-size: 40px">
-            Some (fun) facts:
-        </h2>
-
         <!--All of the fun facts are changed in calculateCE() based on output-->
         <div>
             It would take
             <p class="funfacts">
                 <!--See calculateCE()--> [amount of trees]
             </p>
-            to convert all of that carbon dioxide into oxygen in 1 year
+            to convert all of that carbon dioxide into oxygen in 1 year.
         </div>
         <hr style="height:1px; border-width: 0px; background-color: darkgreen;">
         <div>

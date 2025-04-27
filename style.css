@@ -43,6 +43,7 @@
     font-size:40px;
     text-align:center;
 }
+
 .funfactsinfo { /*Used by the text that appears after calculations*/
     display: none;
     margin: auto;
@@ -68,6 +69,7 @@
 div { /*sets the default font to be Arial*/
     font-family: Arial;
 }
+
 body { /*Sets the background for the page to be light blue*/
     background-image: url("/images/forest.jpg");
     background-repeat: no-repeat;
@@ -88,7 +90,7 @@ h2 { /*Used by subheadings within the beige body box*/
     font-size: 40px; 
     text-align: left;
     margin-top: 0px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     margin-left: 10px;
 }
 
@@ -143,6 +145,7 @@ option { /*Uses the same font size as the select box*/
     display: block;
     text-align: center;
 }
+
 .CEsubmit:hover {
     background-color:#a9dda2;
     transition: all 0.2s ease-out;
@@ -151,6 +154,7 @@ option { /*Uses the same font size as the select box*/
 #miles { /*TODO: Center this*/
     display: block; 
     margin: auto;
+    margin-top: 10px;
     width: 100%;
 
     color: green;
@@ -163,6 +167,7 @@ option { /*Uses the same font size as the select box*/
     background-color: #ffffff;
 
 }
+
 #vehicle {
     display: block; 
     margin: auto;
@@ -171,11 +176,13 @@ option { /*Uses the same font size as the select box*/
     border-radius: 5px;
     color: darkgreen;
 }
+
 #travel {
     text-align: center;
     font-size: 30px;
     margin: 2.5%;
 }
+
 #map {
     width: 100%;
     height: 500px;

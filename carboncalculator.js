@@ -66,7 +66,7 @@ function calculateCE() {
     alternative.style.display = "block";
     if (distance <= 2) {
         alternative.textContent = "Maybe try walking instead!";
-    } else if (distance <= 10) {s
+    } else if (distance <= 10) {
         alternative.textContent = "Maybe try biking instead!";
     } else if (transport == "car" || transport == "truck") {
         alternative.textContent = "Maybe try using public transportation instead!";
@@ -85,8 +85,8 @@ function calculateCE() {
         funfacts[i].style.display = "block"; /* display all fun facts */
     }
     funfacts[0].textContent = (Math.round(carbon_dioxide_output_grams/2.1700))/1000 + ' trees' /*USDA citing Arbol Day Foundatio */
-    funfacts[1].textContent = carbon_dioxide_output_tons*8000000
-    funfacts[2].textContent = (Math.round(carbon_dioxide_output_tons*19405.02118))/1000 + '%'/*((8 billion*co2 output in tons) / 41.2 billion)*100% */ /*Global Carbon Project */
+    funfacts[1].textContent = carbon_dioxide_output_tons*8 + ' billion'
+    funfacts[2].textContent = (Math.round((((carbon_dioxide_output_tons*8)/41.2)*100000)))/1000 + '%'/*((8 billion*co2 output in tons) / 41.2 billion)*100% */ /*Global Carbon Project */
 }
 
 function scrollFunction() {
