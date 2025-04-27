@@ -2,7 +2,8 @@
 const miles = document.getElementById("miles");
 const vehicle = document.getElementById("vehicle");
 const output = document.getElementById("output");
-const funfacts = document.getElementByClassName("funfacts")
+const funfacttitle = document.getElementById("funFactTitle");
+const funfacts = document.getElementsByClassName("funfacts");
 
 function displayInfo(id) {
     /* displayInfo(id): toggles the visibility of the given container   *
@@ -50,10 +51,13 @@ function calculateCE() {
     carbon_dioxide_output_tons = Math.round(carbon_dioxide_output_tons)/10000; /* rounds value to the nearest integer, then divide by 10000 to round by 4 decimal places*/
     
     output.style.display = "block";
-    output.textContent = 'Travelling ' + distance + ' mile' + distance_plural + ' by ' + transport + ' would produce ' + carbon_dioxide_output_grams + ' grams of carbon dioxide or ' + carbon_dioxide_output_tons + ' US tons of carbon dioxide' /* edit the output text box with the output variables */
+    output.textContent = 'Travelling ' + distance + ' mile' + distance_plural + ' by ' + transport + ' would produce ' +  carbon_dioxide_output_grams + ' grams of carbon dioxide or ' + carbon_dioxide_output_tons + ' US tons of carbon dioxide.'; /* edit the output text box with the output variables */
 
+    funfacttitle.style.display = "block";
     for (let i = 0; i < funfacts.length; i++) {
         funfacts[i].style.display = "block";
     }
-    funfacts[0].textContent = 'It would take' + carbon_dioxide_output_grams/21700 + 'trees to convert all that carbon dioxide into oxygen in 1 year'
+    funfacts[0].textContent = 'It would take ' + (Math.round(carbon_dioxide_output_grams/2.1700))/1000 + ' trees to convert all that carbon dioxide into oxygen in 1 year.' /*USDA citing Arbol Day Foundatio */
+    funfacts[1].textContent = 'If all 8 billion people in the world travelled ' + distance + ' mile' + distance_plural + ' by ' + transport + ', it would contribute ' + carbon_dioxide_output_tons*8000000 + ' US tons of carbon dioxide.'
+    funfacts[2].textContent = 'That would make up ' + (Math.round(carbon_dioxide_output_tons*19405.02118))/1000 /*((8 billion*co2 output in tons) / 41.2 billion)*100% */ + '% of carbon dioxide emissions in 2024.' /*Global Carbon Project */
 }

@@ -86,7 +86,6 @@
             <!--output area-->
             <div id="output" class="output">
             </div>
-            <script src = "carboncalculator.js"></script> <!--retrieves the JavaScript code at map.js for use by the HTML code-->
         </div>
     <br>
     
@@ -112,16 +111,23 @@
     
     <br>
     <div>
-        <h2>
+        <h2 id="funFactTitle" style="display: none;">
             Some (fun) facts:
         </h2>
+
+        <!--All of the fun facts are changed in calculateCE() based on output-->
         <p class="funfacts">
-            It would take [carbon_dioxide_output_grams/21700] tree(s) to convert all that carbon dioxide into oxygen in 1 year
+            funfact1
+        </p>
+        <p class="funfacts">
+            funfact2
+            <p class="funfacts">
+                funfact3
+            </p>
         </p>
     </div>
+    <script src = "carboncalculator.js"></script> <!--retrieves the JavaScript code at map.js for use by the HTML code-->
     </div>
-    <input type="text" id="outputBox" readonly/> grams of carbon emissions released
-    <document.getElementdById("carbon_dioxide_output_grams"). value="result"/>
     
     <button id="test">test</button>
     <script>
