@@ -47,14 +47,22 @@
             Transportation methods account for <b>15%</b> of the world's carbon emissions. By reducing our reliance on motorized vehicles, we can reduce our consumption of fossil fuels and our carbon footprint. Instead of driving to the nearby park, you can help the planet by walking or biking instead. Using electric vehicles or renewable energy sources, such as solar power, can also help reduce carbon emissions.
         </div>
 
-        <!--Purpose of calculator-->
-        <button class="dropdown" onclick="displayInfo('purpose')">
-            What is the purpose of the calculator?
+        <!--What about electric cars?-->
+        <button class="dropdown" onclick="displayInfo('ev')">
+            What about electric vehicles?
         </button> 
-        <div id="purpose" class="info">
-            This carbon emission calculator tells you how many carbon emissions you release using either a car, plane, or train based on how many miles you traveled. It helps you become more aware of your impact on the environment, and what changes you can make to decrease your carbon footprint.
+        <div id="ev" class="info">
+            Electric cars are an alternative to using gas cars, as they are environmentally friendly and do not release carbon emissions. However, that also depends on where the electricity is sourced.
         </div>    
                
+        <!--Purpose-->
+        <button class="dropdown" onclick="displayInfo('work')">
+            What is this calculator work?
+        </button> 
+        <div id="work" class="info">
+            The calculations are based on the average carbon emissions of each mode of transport. Cars emit 400 g CO<sub>2</sub>/mi<!--US Environmental Protection Agency-->, trucks emit 1,617 g CO<sub>2</sub>/mi<!--Global Supply Chain-->, planes emit 24,176 g CO<sub>2</sub>/mi, and trains emit 177 g CO<sub>2</sub>/mi. 
+        </div>
+
         <!--How the calculator works-->
         <button class="dropdown" onclick="displayInfo('work')">
             How does the calculator work?
@@ -63,15 +71,32 @@
             The calculations are based on the average carbon emissions of each mode of transport. Cars emit 400 g CO<sub>2</sub>/mi<!--US Environmental Protection Agency-->, trucks emit 1,617 g CO<sub>2</sub>/mi<!--Global Supply Chain-->, planes emit 24,176 g CO<sub>2</sub>/mi, and trains emit 177 g CO<sub>2</sub>/mi. 
         </div>
 
-        <!--<div id="map"; style="height: 500px; width: 75%;"></div>-->
         <div class="calculatorbox"> <!--creates a separate green box for the calculator-->
             <h2 style="text-align: center">
                 Calculate your carbon emissions
             </h2>
             
+            <!--Map-->
+            <script type="module" src="https://unpkg.com/@googlemaps/extended-component-library@0.6"></script>
+
+            <div id="container">
+                <gmpx-place-picker id="place-picker" for-map="map"></gmpx-place-picker>
+                <button id="set" onclick="set_location()">Find</button>
+
+                <div id="map"></div>
+
+            </div>
+            <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBZPpkIxfgQUQzAcw_76dqLp8HDvy1hyQ&callback=initMap&v=weekly&solution_channel=GMP_CCS_distancematrix_v2"
+            async
+            defer
+            ></script>
+
+            <script src="map.js"></script>
+
             <!--dropdown box and text boxes-->
             <div>
-                <input type="number" id="miles" min=0 value=0> <!--a text input box used to input the miles traveled-->
+                <input type="number" id="miles" min=0 value=0 max=1000000> <!--a text input box used to input the miles traveled-->
                 <p id="travel" style="color:darkgreen">miles traveled by</p>
                 
                 <select name = "vehicle" id = "vehicle"> <!--dropdown menu with 4 options: car, truck, plane, and train-->
@@ -86,114 +111,11 @@
             <!--output area-->
             <div id="output" class="output">
             </div>
+            <div id="alternative" class="output">
+            </div>
         </div>
     <br>
     
-    <div id="map"></div>
-
-    <div id="container">
-        <div id="map"></div>
-        <div id="sidebar">
-          <h3 style="flex-grow: 0">Request</h3>
-          <pre style="flex-grow: 1" id="request"></pre>
-          <h3 style="flex-grow: 0">Response</h3>
-          <pre style="flex-grow: 1" id="response"></pre>
-        </div>
-      </div>
-      <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBZPpkIxfgQUQzAcw_76dqLp8HDvy1hyQ&callback=initMap&v=weekly&solution_channel=GMP_CCS_distancematrix_v2"
-        defer
-      ></script>
-    <script>
-        
-        async function initMap() {
-            const bounds = new google.maps.LatLngBounds();
-            const markersArray = [];
-            
-            const map = new google.maps.Map(document.getElementById("map"), {
-                center: { lat: 55.53, lng: 9.4 },
-                zoom: 10,
-            });
-
-            // initialize services
-            const geocoder = new google.maps.Geocoder();
-            const service = new google.maps.DistanceMatrixService();
-            // build request 
-            const origin1 = { lat: 55.93, lng: -3.118 };
-            const origin2 = "Greenwich, England";
-            const destinationA = "Stockholm, Sweden";
-            const destinationB = { lat: 50.087, lng: 14.421 };
-            const request = {
-                origins: [origin1, origin2],
-                destinations: [destinationA, destinationB],
-                travelMode: google.maps.TravelMode.DRIVING,
-                unitSystem: google.maps.UnitSystem.METRIC,
-                avoidHighways: false,
-                avoidTolls: false,
-            };
-
-            // put request on page
-            document.getElementById("request").innerText = JSON.stringify(
-                request,
-                null,
-                2,
-            );
-            // get distance matrix response
-            service.getDistanceMatrix(request).then((response) => {
-                // put response
-                document.getElementById("response").innerText = JSON.stringify(
-                response,
-                null,
-                2,
-                );
-
-                // show on map
-                const originList = response.originAddresses;
-                const destinationList = response.destinationAddresses;
-
-                deleteMarkers(markersArray);
-
-                const showGeocodedAddressOnMap = (asDestination) => {
-                const handler = ({ results }) => {
-                    map.fitBounds(bounds.extend(results[0].geometry.location));
-                    markersArray.push(
-                    new google.maps.Marker({
-                        map,
-                        position: results[0].geometry.location,
-                        label: asDestination ? "D" : "O",
-                    }),
-                    );
-                };
-                return handler;
-                };
-
-                for (let i = 0; i < originList.length; i++) {
-                const results = response.rows[i].elements;
-
-                geocoder
-                    .geocode({ address: originList[i] })
-                    .then(showGeocodedAddressOnMap(false));
-
-                for (let j = 0; j < results.length; j++) {
-                    geocoder
-                    .geocode({ address: destinationList[j] })
-                    .then(showGeocodedAddressOnMap(true));
-                }
-                }
-            });
-            }
-
-            function deleteMarkers(markersArray) {
-            for (let i = 0; i < markersArray.length; i++) {
-                markersArray[i].setMap(null);
-            }
-
-            markersArray = [];
-        }
-
-        window.initMap = initMap;
-
-    </script>
     
     <br>
     <div class="funfactsinfo">
@@ -209,7 +131,7 @@
             </p>
             to convert all of that carbon dioxide into oxygen in 1 year
         </div>
-        <hr style="height:1px; border-width: ; background-color: darkgreen;">
+        <hr style="height:1px; border-width: 0px; background-color: darkgreen;">
         <div>
             If all 8 billion people in the world travelled that distance, it would contribute
             <div class="funfacts">
@@ -219,24 +141,10 @@
             <div class="funfacts">
                 <!--See calculateCE()--> [CO2 emissions in tons]
             </div>
-            of the total amount of carbon emissions in 2024
+            of the total amount of carbon emissions in 2024!
         </div>
     </div>
-    <script src = "carboncalculator.js"></script> <!--retrieves the JavaScript code at map.js for use by the HTML code-->
     </div>
-    
-    <button id="test">test</button>
-    <script>
-        document.getElementById("test").addEventListener("click", function(){
-            fetch('http://127.0.0.1:5001/map')
-            .then(data => {
-                alert(data)
-                console.log(data)
-            })
-            
-        });
-        
-    </script>
-    <img src="images/forest.jpg" alt="Forest background">
-    </img>
+    <button id="top" onclick="backToTop()">Back to top</button>
+    <script src = "carboncalculator.js"></script> <!--retrieves the JavaScript code at carboncalculator.js for use by the HTML code-->
 </body>

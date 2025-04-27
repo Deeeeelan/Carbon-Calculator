@@ -1,9 +1,13 @@
-/* Retrieve the input values for miles and vehicle*/
+/* Retrieve the HTML blocks for use in the code*/
 const miles = document.getElementById("miles");
 const vehicle = document.getElementById("vehicle");
 const output = document.getElementById("output");
+const alternative = document.getElementById("alternative");
 const funfactsinfo = document.getElementsByClassName("funfactsinfo");
 const funfacts = document.getElementsByClassName("funfacts");
+const topbutton = document.getElementById("top")
+
+window.onscroll = function() {scrollFunction()}; /* detects when the user scrolls */
 
 function displayInfo(id) {
     /***************************************************
@@ -58,6 +62,21 @@ function calculateCE() {
     output.style.display = "block";
     output.textContent = 'Travelling ' + distance + ' mile' + distance_plural + ' by ' + transport + ' would produce ' +  carbon_dioxide_output_grams + ' grams of carbon dioxide or ' + carbon_dioxide_output_tons + ' US tons of carbon dioxide.'; /* edit the output text box with the output variables */
 
+    /* suggest alternative options to the user depending on distance and mode of transport */
+    alternative.style.display = "block";
+    if (distance <= 2) {
+        alternative.textContent = "Maybe try walking instead!";
+    } else if (distance <= 10) {s
+        alternative.textContent = "Maybe try biking instead!";
+    } else if (transport == "car" || transport == "truck") {
+        alternative.textContent = "Maybe try using public transportation instead!";
+    } else if (transport == "plane" && distance <= 500) {
+        alternative.textContent = "Maybe try going on a road trip instead!";
+    } else {
+        alternative.style.display = "none";
+    }
+    
+
     /* display and edit fun fact section with carbon output */
     for (let i = 0; i < funfactsinfo.length; i++) {
         funfactsinfo[i].style.display = "block"; /* display all fun facts template information*/
@@ -68,4 +87,24 @@ function calculateCE() {
     funfacts[0].textContent = (Math.round(carbon_dioxide_output_grams/2.1700))/1000 + ' trees' /*USDA citing Arbol Day Foundatio */
     funfacts[1].textContent = carbon_dioxide_output_tons*8000000
     funfacts[2].textContent = (Math.round(carbon_dioxide_output_tons*19405.02118))/1000 + '%'/*((8 billion*co2 output in tons) / 41.2 billion)*100% */ /*Global Carbon Project */
+}
+
+function scrollFunction() {
+    /************************************************ 
+    * If the user scrolls 20 pixels, display back   *
+    * to top button                                 *
+    ************************************************/
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    topbutton.style.display = "block";
+  } else {
+    topbutton.style.display = "none";
+  }
+}
+
+function backToTop() {
+    /************************************************ 
+    * Takes the user back to the top of the page    *
+    ************************************************/
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
 }
