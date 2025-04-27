@@ -1,5 +1,5 @@
 
-// Taken from the google maps API
+// Taken from the Google Maps API page
 
 async function initMap(coords) {;
     const placePicker = document.getElementById("place-picker");
