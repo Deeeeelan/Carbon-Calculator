@@ -88,7 +88,7 @@ async function initMap(coords) {;
             const distance = response.rows[0].elements[0].distance.value;
             document.getElementById("miles").value = Math.round(distance/0.01609)/100000;
         } else {
-            alert("No route could be calculated.");
+            //alert("No route could be calculated.");
         }
         
 
