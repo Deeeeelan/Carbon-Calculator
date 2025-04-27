@@ -2,12 +2,14 @@
 const miles = document.getElementById("miles");
 const vehicle = document.getElementById("vehicle");
 const output = document.getElementById("output");
-const funfacttitle = document.getElementById("funFactTitle");
+const funfactsinfo = document.getElementsByClassName("funfactsinfo");
 const funfacts = document.getElementsByClassName("funfacts");
 
 function displayInfo(id) {
-    /* displayInfo(id): toggles the visibility of the given container   *
-    *               id: string id of info box                          */
+    /***************************************************
+    * Toggles the visibility of the given container    *
+    *   :param id: string id of info box               *
+    ***************************************************/
     /* retrieve the provided container with the same id */
     var info = document.getElementById(id);
     
@@ -19,8 +21,10 @@ function displayInfo(id) {
 }
 
 function calculateCE() {
-    /* calculateCE: Calculates the amount of carbon emissions in *
-    *               grams and tons based on the user's input    */
+    /******************************************************** 
+    * Calculates the amount of carbon emissions in grams    *
+    * and tons based on the user's input                    *  
+    ********************************************************/
     /* retrive input values*/
     distance = miles.value;
     transport = vehicle.value;
@@ -35,7 +39,7 @@ function calculateCE() {
         return;
     }
     if (distance == 1) {
-        distance_plural = ""
+        distance_plural = "" /* used to change "miles" to "mile" if the user inputs one mile */
     }
     if (transport == "car") { /* cars emit 400 grams of CO2 per mile */
         carbon_dioxide_output_grams = distance * 400;
@@ -50,14 +54,18 @@ function calculateCE() {
     carbon_dioxide_output_tons = carbon_dioxide_output_grams/907200*10000; /* converts grams to tons by dividing by 907200, multiplied by 10000 in order to round the value */
     carbon_dioxide_output_tons = Math.round(carbon_dioxide_output_tons)/10000; /* rounds value to the nearest integer, then divide by 10000 to round by 4 decimal places*/
     
+    /* display and edit output text with carbon output */
     output.style.display = "block";
     output.textContent = 'Travelling ' + distance + ' mile' + distance_plural + ' by ' + transport + ' would produce ' +  carbon_dioxide_output_grams + ' grams of carbon dioxide or ' + carbon_dioxide_output_tons + ' US tons of carbon dioxide.'; /* edit the output text box with the output variables */
 
-    funfacttitle.style.display = "block";
-    for (let i = 0; i < funfacts.length; i++) {
-        funfacts[i].style.display = "block";
+    /* display and edit fun fact section with carbon output */
+    for (let i = 0; i < funfactsinfo.length; i++) {
+        funfactsinfo[i].style.display = "block"; /* display all fun facts template information*/
     }
-    funfacts[0].textContent = 'It would take ' + (Math.round(carbon_dioxide_output_grams/2.1700))/1000 + ' trees to convert all that carbon dioxide into oxygen in 1 year.' /*USDA citing Arbol Day Foundatio */
-    funfacts[1].textContent = 'If all 8 billion people in the world travelled ' + distance + ' mile' + distance_plural + ' by ' + transport + ', it would contribute ' + carbon_dioxide_output_tons*8000000 + ' US tons of carbon dioxide.'
-    funfacts[2].textContent = 'That would make up ' + (Math.round(carbon_dioxide_output_tons*19405.02118))/1000 /*((8 billion*co2 output in tons) / 41.2 billion)*100% */ + '% of carbon dioxide emissions in 2024.' /*Global Carbon Project */
+    for (let i = 0; i < funfacts.length; i++) {
+        funfacts[i].style.display = "block"; /* display all fun facts */
+    }
+    funfacts[0].textContent = (Math.round(carbon_dioxide_output_grams/2.1700))/1000 + ' trees' /*USDA citing Arbol Day Foundatio */
+    funfacts[1].textContent = carbon_dioxide_output_tons*8000000
+    funfacts[2].textContent = (Math.round(carbon_dioxide_output_tons*19405.02118))/1000 + '%'/*((8 billion*co2 output in tons) / 41.2 billion)*100% */ /*Global Carbon Project */
 }

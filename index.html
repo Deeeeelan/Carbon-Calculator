@@ -74,7 +74,7 @@
                 <input type="number" id="miles" min=0 value=0> <!--a text input box used to input the miles traveled-->
                 <p id="travel" style="color:darkgreen">miles traveled by</p>
                 
-                <select name = "vehicle" id = "vehicle"> <!--dropdown menu with x options: car, plane, and train-->
+                <select name = "vehicle" id = "vehicle"> <!--dropdown menu with 4 options: car, truck, plane, and train-->
                     <option value = "car"> car </option>
                     <option value = "truck"> truck </option>
                     <option value = "plane"> plane </option>
@@ -91,40 +91,135 @@
     
     <div id="map"></div>
 
-    <!-- prettier-ignore -->
-    <script>(g=>{var h,a,k,p="The Google Maps JavaScript API",c="google",l="importLibrary",q="__ib__",m=document,b=window;b=b[c]||(b[c]={});var d=b.maps||(b.maps={}),r=new Set,e=new URLSearchParams,u=()=>h||(h=new Promise(async(f,n)=>{await (a=m.createElement("script"));e.set("libraries",[...r]+"");for(k in g)e.set(k.replace(/[A-Z]/g,t=>"_"+t[0].toLowerCase()),g[k]);e.set("callback",c+".maps."+q);a.src=`https://maps.${
-    c}apis.com/maps/api/js?`+e;d[q]=f;a.onerror=()=>h=n(Error(p+" could not load."));a.nonce=m.querySelector("script[nonce]")?.nonce||"";m.head.append(a)}));d[l]?console.warn(p+" only loads once. Ignoring:",g):d[l]=(f,...n)=>r.add(f)&&u().then(()=>d[l](f,...n))})
-        ({key: "API_KEY", v: "weekly"});</script>
+    <div id="container">
+        <div id="map"></div>
+        <div id="sidebar">
+          <h3 style="flex-grow: 0">Request</h3>
+          <pre style="flex-grow: 1" id="request"></pre>
+          <h3 style="flex-grow: 0">Response</h3>
+          <pre style="flex-grow: 1" id="response"></pre>
+        </div>
+      </div>
+      <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBBZPpkIxfgQUQzAcw_76dqLp8HDvy1hyQ&callback=initMap&v=weekly&solution_channel=GMP_CCS_distancematrix_v2"
+        defer
+      ></script>
     <script>
-        let map;
-
-        async function initMap() {
-          const { Map } = await google.maps.importLibrary("maps");
         
-          map = new Map(document.getElementById("map"), {
-            center: { lat: -34.397, lng: 150.644 },
-            zoom: 8,
-          });
+        function initMap() {
+        const bounds = new google.maps.LatLngBounds();
+        const markersArray = [];
+        
+        const map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: 55.53, lng: 9.4 },
+            zoom: 10,
+        });
+
+        // initialize services
+        const geocoder = new google.maps.Geocoder();
+        const service = new google.maps.DistanceMatrixService();
+        // build request
+        const origin1 = { lat: 55.93, lng: -3.118 };
+        const origin2 = "Greenwich, England";
+        const destinationA = "Stockholm, Sweden";
+        const destinationB = { lat: 50.087, lng: 14.421 };
+        const request = {
+            origins: [origin1, origin2],
+            destinations: [destinationA, destinationB],
+            travelMode: google.maps.TravelMode.DRIVING,
+            unitSystem: google.maps.UnitSystem.METRIC,
+            avoidHighways: false,
+            avoidTolls: false,
+        };
+
+        // put request on page
+        document.getElementById("request").innerText = JSON.stringify(
+            request,
+            null,
+            2,
+        );
+        // get distance matrix response
+        service.getDistanceMatrix(request).then((response) => {
+            // put response
+            document.getElementById("response").innerText = JSON.stringify(
+            response,
+            null,
+            2,
+            );
+
+            // show on map
+            const originList = response.originAddresses;
+            const destinationList = response.destinationAddresses;
+
+            deleteMarkers(markersArray);
+
+            const showGeocodedAddressOnMap = (asDestination) => {
+            const handler = ({ results }) => {
+                map.fitBounds(bounds.extend(results[0].geometry.location));
+                markersArray.push(
+                new google.maps.Marker({
+                    map,
+                    position: results[0].geometry.location,
+                    label: asDestination ? "D" : "O",
+                }),
+                );
+            };
+            return handler;
+            };
+
+            for (let i = 0; i < originList.length; i++) {
+            const results = response.rows[i].elements;
+
+            geocoder
+                .geocode({ address: originList[i] })
+                .then(showGeocodedAddressOnMap(false));
+
+            for (let j = 0; j < results.length; j++) {
+                geocoder
+                .geocode({ address: destinationList[j] })
+                .then(showGeocodedAddressOnMap(true));
+            }
+            }
+        });
         }
-        initMap();
+
+        function deleteMarkers(markersArray) {
+        for (let i = 0; i < markersArray.length; i++) {
+            markersArray[i].setMap(null);
+        }
+
+        markersArray = [];
+        }
+
+        window.initMap = initMap;
+
     </script>
     
     <br>
-    <div>
-        <h2 id="funFactTitle" style="display: none;">
+    <div class="funfactsinfo">
+        <h2 style="font-size: 40px">
             Some (fun) facts:
         </h2>
 
         <!--All of the fun facts are changed in calculateCE() based on output-->
-        <p class="funfacts">
-            funfact1
-        </p>
-        <p class="funfacts">
-            funfact2
+        <div>
+            It would take
             <p class="funfacts">
-                funfact3
+                <!--See calculateCE()--> [amount of trees]
             </p>
-        </p>
+            to convert all of that carbon dioxide into oxygen in<style="font-size:30px"> 1 year </style>
+        </div>
+        <div>
+            If all 8 billion people in the world travelled that distance, it would contribute
+            <div class="funfacts">
+                <!--See calculateCE()--> [CO2 emissions in tons]
+            </div>
+            US tons of carbon dioxide <br> That's 
+            <div class="funfacts">
+                <!--See calculateCE()--> [CO2 emissions in tons]
+            </div>
+            of the total amount of carbon emissions in 2024
+        </div>
     </div>
     <script src = "carboncalculator.js"></script> <!--retrieves the JavaScript code at map.js for use by the HTML code-->
     </div>
@@ -139,5 +234,8 @@
             })
             
         });
+        
     </script>
+    <img src="images/forest.jpg" alt="Forest background">
+    </img>
 </body>

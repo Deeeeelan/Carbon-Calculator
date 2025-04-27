@@ -43,22 +43,33 @@
     font-size:40px;
     text-align:center;
 }
-.funfacts { /*Uesd by the text that appears after calculations*/
+.funfactsinfo { /*Used by the text that appears after calculations*/
     display: none;
     margin: auto;
     margin-top: 10px;
     background-color: antiquewhite;
-    border-radius: 20px;
     padding: 2%;
     color:darkgreen;
-    font-size:40px;
-    text-align:left;
+    font-size: 20px;
+    text-align: center;
+}
+
+.funfacts { /*Used by the text that needs to change from the function*/
+    display: none;
+    margin: auto;
+    margin-top: 0px;
+    background-color: antiquewhite;
+    padding: 2%;
+    color:darkgreen;
+    font-size: 80px;
+    text-align: center;
 }
 
 div { /*sets the default font to be Arial*/
     font-family: Arial;
 }
 body { /*Sets the background for the page to be light blue*/
+    background-image: url("C:\OCSEF Images\forest background.jpg");
     background-color: lightblue;
     background: linear-gradient(lightblue, rgb(119, 181, 177));
 }
