@@ -71,7 +71,7 @@ div { /*sets the default font to be Arial*/
 }
 
 body { /*Sets the background for the page to be light blue*/
-    background-image: url("/images/forest.jpg");
+    background-image: url("/forest.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100% 100%;
